@@ -1,0 +1,39 @@
+# Calculating N fibonacci number
+# Input: n (integer, > 0)
+# Output: fibonacci(n)
+
+	.globl main
+main:	li $v0, 5
+	syscall
+	move $a0, $v0
+	jal FIB  
+	move $a0, $v0
+	li $v0, 1
+	syscall
+	li $v0, 10
+	syscall
+
+	.globl FIB
+FIB:	addi $sp, $sp, -16
+	sw $s1, 12($sp)
+	sw $s0, 8($sp)
+	sw $ra, 4($sp)
+	sw $a0, 0($sp)
+	slti $t0, $a0, 3
+	beq $t0, $0, FIB_C
+	li $v0, 1
+	addi $sp, $sp, 16
+	jr $ra
+FIB_C:	addi $a0, $a0, -1
+	jal FIB
+	move $s0, $v0
+	addi $a0, $a0, -1
+	jal FIB
+	move $s1, $v0
+	add $v0, $s0, $s1
+	lw $a0, 0($sp)
+	lw $ra, 4($sp)
+	lw $s0, 8($sp)
+	lw $s1, 12($sp)
+	addi $sp, $sp, 16
+	jr $ra
