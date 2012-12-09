@@ -1,0 +1,19 @@
+	.text
+	.globl main
+main:	li $v0, 5
+	syscall
+	move $a0, $v0
+
+	addi $v0, $0, 1
+	beq $a0, $0, end
+	.globl loop
+loop:	mul $v0, $v0, $a0
+	addi $a0, $a0, -1
+	slti $t0, $a0, 2
+	beq $t0, $0, loop
+
+end:	move $a0, $v0
+	li $v0, 1
+	syscall
+	li $v0, 10
+	syscall
