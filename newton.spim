@@ -24,7 +24,7 @@ BICO:	addi $sp, $sp, -20
 	sw $a1, 4($sp)
 	sw $a0, 0($sp)
 	beq $zero, $a1, BICO_1		# if a1 == 0, bico(a0, a1) = 1
-	bne $a0, $a1, BICO_C		# if a1 == a0, bico(a0, a1) = 1
+	bne $a0, $a1, BICO_C		  # if a1 == a0, bico(a0, a1) = 1
 BICO_1:	li $v0, 1
 	addi $sp, $sp, 20
 	jr $ra
@@ -32,7 +32,7 @@ BICO_C:	addi $a0, $a0, -1
 	jal BICO			# bico(n-1, k)
 	move $s0, $v0
 	addi $a1, $a1, -1
-	jal BICO				# bico(n-1, k-1)
+	jal BICO			# bico(n-1, k-1)
 	move $s1, $v0
 	add $v0, $s0, $s1
 	lw $a0, 0($sp)
