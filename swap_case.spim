@@ -1,0 +1,36 @@
+# Swapcase.
+# Amount of letters - change value in line 6.
+# Input: string
+# Output: swapped-case string.
+# REMEMBER! endline is also a character, so put 7 characters instead of 8
+#           (in default config)
+      .data
+      .text
+main: li $a1, 8 # Change this number to input more characters.
+      srl $t3, $a1, 2
+      sub $sp, $sp, $t3
+      move $a0, $sp
+      li $v0, 8
+      syscall
+      
+      li $s0, -1
+loop: addi $s0, $s0, 1
+      add $t0, $sp, $s0
+      lbu $t1, 0($t0)
+      beq $t1, $zero, end
+      slti $t2, $t1, 97
+      beq $t2, $zero, low
+      slti $t2, $t1, 65
+      beq $t2, $zero, upp
+      j endl
+upp:  addi $t1, $t1, 32
+      j endl
+low:  addi $t1, $t1, -32
+      j endl
+endl: sb $t1, 0($t0)
+      j loop
+end:  li $v0, 4
+      syscall
+      add $sp, $sp, $t3
+      li $v0, 10
+      syscall
