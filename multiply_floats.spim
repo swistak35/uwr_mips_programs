@@ -1,0 +1,31 @@
+# Multiply some float by 2^k
+# Our float is in single-precision format in line 10.
+# You can change it, if you're bored.
+# k var is in line 9
+# Output: Multipled number, in decimal.
+
+.globl impo
+.globl main
+main:   li $s2, 2
+        li $s1, 0xc1880000
+        
+impo:   srl $s3, $s1, 31
+        sll $s3, $s3, 8
+        
+        srl $t0, $s1, 23
+        andi $t0, $t0, 0x00ff
+        add $t0, $t0, $s2
+        
+        add $s3, $s3, $t0
+        sll $s3, $s3, 23
+        
+        sll $t0, $s1, 9
+        srl $t0, $t0, 9
+        add $s3, $s3, $t0
+        
+        move $a0, $s3
+        li $v0, 1
+        syscall
+        
+        li $v0, 10
+        syscall
