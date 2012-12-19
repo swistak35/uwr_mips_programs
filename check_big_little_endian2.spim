@@ -1,0 +1,7 @@
+      .data
+str:  .asciiz "abcd"
+      .text
+main: la $t0, str
+      lbu $a0, 0($t0)
+      li $v0, 1
+      syscall
